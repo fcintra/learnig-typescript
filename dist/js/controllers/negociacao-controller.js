@@ -7,10 +7,10 @@ export class NegociacaoController {
         this.inputQuantidade = document.querySelector('#quantidade');
         this.inputValor = document.querySelector('#valor');
     }
-    ;
     adiciona() {
         const negociacao = this.criaNegociacao();
         this.negociacoes.adiciona(negociacao);
+        this.negociacoes.lista();
         console.log(this.negociacoes.lista());
         this.limparFormulario();
     }
