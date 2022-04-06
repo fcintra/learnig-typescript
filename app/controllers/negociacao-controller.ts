@@ -1,3 +1,4 @@
+import { DiasSemana } from './../enums/diasSemana.js';
 import { MensagemView } from './../views/mensagem-view.js';
 import { NegociacoesView } from './../views/negociacoes-view.js';
 import { Negociacao } from "../models/negociacao.js";
@@ -10,22 +11,32 @@ export class NegociacaoController {
     private negociacoes = new Negociacoes();
     private negociacoesView = new NegociacoesView('#negociacoesView');
     private mensagemView = new MensagemView('#mensagemView');
-
+  
     constructor() {
         this.inputData = document.querySelector('#data');
         this.inputQuantidade = document.querySelector('#quantidade');
         this.inputValor = document.querySelector('#valor');
         this.negociacoesView.update(this.negociacoes);
-        }
-    adiciona(): void 
-     {
-        const negociacao = this.criaNegociacao();
-        this.negociacoes.adiciona(negociacao);
-        this.negociacoesView.update(this.negociacoes);
-        this.mensagemView.update('Negociação adicionada com sucesso!');
-        this.limparFormulario();
     }
-    criaNegociacao(): Negociacao
+    
+    public adiciona(): void 
+     {
+        const negociacao = this.criaNegociacao();   
+        if(!this.DiaUtil(negociacao.data)){  
+            this.mensagemView.update('Apenas negociacões em dias úteis são aceitas!')
+            return;
+        }
+        this.negociacoes.adiciona(negociacao);
+        this.limparFormulario();
+        this.atualizaView(); 
+    }
+
+    private DiaUtil(data: Date): boolean
+    {
+        return data.getDay() > DiasSemana.DOMINGO && data.getDay() < DiasSemana.SABADO;
+    }
+
+    private criaNegociacao(): Negociacao
      {
         /*expressao regular*/
         const exp = /-/g;
@@ -34,7 +45,8 @@ export class NegociacaoController {
         const valor = parseInt(this.inputValor.value);
        return new Negociacao(date, quantidade, valor);
     }
-    limparFormulario(): void
+
+    private limparFormulario(): void
     {
         this.inputData.value = '';
         this.inputQuantidade.value = '';
@@ -42,5 +54,9 @@ export class NegociacaoController {
         this.inputData.focus();
     }
 
-
+    private atualizaView(): void
+    {
+       this.negociacoesView.update(this.negociacoes);
+       this.mensagemView.update('Negociação adicionada com sucesso!');
+    }
 }
