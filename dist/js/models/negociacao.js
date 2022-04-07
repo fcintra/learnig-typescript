@@ -13,7 +13,6 @@ export class Negociacao {
         return data;
     }
     static criaDe(dataString, quantidadeString, valorString) {
-        /*expressao regular*/
         const exp = /-/g;
         const date = new Date(dataString.replace(exp, ','));
         const quantidade = parseInt(quantidadeString);
