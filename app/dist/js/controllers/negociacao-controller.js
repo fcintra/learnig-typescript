@@ -21,22 +21,17 @@ export class NegociacaoController {
         this.negociacoesView.update(this.negociacoes);
     }
     adiciona() {
-        const t1 = performance.now();
         const negociacao = Negociacao.criaDe(this.inputData.value, this.inputQuantidade.value, this.inputValor.value);
         if (!this.ehDiaUtil(negociacao.data)) {
-            this.mensagemView
-                .update('Apenas negociações em dias úteis são aceitas');
+            this.mensagemView.update('Apenas negociações em dias úteis são aceitas');
             return;
         }
         this.negociacoes.adiciona(negociacao);
         this.limparFormulario();
         this.atualizaView();
-        const t2 = performance.now();
-        console.log(`Tempo de execução do método adiciona: ${(t2 - t1) / 1000} segundos`);
     }
     ehDiaUtil(data) {
-        return data.getDay() > DiasDaSemana.DOMINGO
-            && data.getDay() < DiasDaSemana.SABADO;
+        return data.getDay() > DiasDaSemana.DOMINGO && data.getDay() < DiasDaSemana.SABADO;
     }
     limparFormulario() {
         this.inputData.value = '';

@@ -14,7 +14,7 @@ export class NegociacaoController {
     private mensagemView = new MensagemView('#mensagemView');
 
     constructor() {
-        this.inputData = <HTMLInputElement>document.querySelector('#data');
+        this.inputData = document.querySelector('#data') as HTMLInputElement;
         this.inputQuantidade = document.querySelector('#quantidade') as HTMLInputElement;
         this.inputValor = document.querySelector('#valor') as HTMLInputElement;
         this.negociacoesView.update(this.negociacoes);
@@ -22,9 +22,8 @@ export class NegociacaoController {
 
 
     @logTempoExecucao()
-    public adiciona(): void {
-        const t1 = performance.now();
-
+    public adiciona(): void 
+    {
         const negociacao = Negociacao.criaDe(
             this.inputData.value, 
             this.inputQuantidade.value,
@@ -32,24 +31,17 @@ export class NegociacaoController {
         );
      
         if (!this.ehDiaUtil(negociacao.data)) {
-            this.mensagemView
-                .update('Apenas negociações em dias úteis são aceitas');
-            return ;
+            this.mensagemView.update('Apenas negociações em dias úteis são aceitas');
+            return;
         }
 
         this.negociacoes.adiciona(negociacao);
         this.limparFormulario();
         this.atualizaView();
-
-        const t2 = performance.now();
-        
-        console.log(`Tempo de execução do método adiciona: ${(t2 - t1)/1000} segundos`)
-
     }
 
     private ehDiaUtil(data: Date) {
-        return data.getDay() > DiasDaSemana.DOMINGO 
-            && data.getDay() < DiasDaSemana.SABADO;
+        return data.getDay() > DiasDaSemana.DOMINGO && data.getDay() < DiasDaSemana.SABADO;
     }
 
     private limparFormulario(): void {
