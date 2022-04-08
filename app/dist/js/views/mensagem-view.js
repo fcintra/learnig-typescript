@@ -7,3 +7,4 @@ export class MensagemView extends View {
         seletor.style.display = 'none';
     }
 }
+//# sourceMappingURL=mensagem-view.js.map

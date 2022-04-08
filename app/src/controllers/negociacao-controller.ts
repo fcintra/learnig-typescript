@@ -19,6 +19,7 @@ import {
 import {
     NegociacoesView
 } from '../views/negociacoes-view.js';
+import { imprimir } from '../utils/imprimir.js';
 
 export class NegociacaoController {
     @domInjector('#data')
@@ -54,6 +55,7 @@ export class NegociacaoController {
         }
 
         this.negociacoes.adiciona(negociacao);
+        imprimir(negociacao)
         this.limparFormulario();
         this.atualizaView();
     }
@@ -89,7 +91,5 @@ export class NegociacaoController {
         setTimeout(() => {
             this.mensagemView.setHiddenFlashMessage(seletor)
         }, 2000);
-        
-
     }
 }
