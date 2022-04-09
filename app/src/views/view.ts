@@ -11,13 +11,13 @@ export abstract class View<T> {
         }
     }
 
-    public update(model: T): void {
-        let template = this.template(model);
+    public update(model: T, classValue?: string): void {
+        let template = this.template(model, classValue);
         this.elemento.innerHTML = template;
 
     }
 
     
 
-    protected abstract template(model: T): string;
+    protected abstract template(model: T, classValue?: string): string;
 }

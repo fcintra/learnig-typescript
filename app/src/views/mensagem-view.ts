@@ -1,14 +1,11 @@
+import {
+    View
+} from './view.js';
 
-import { View } from './view.js';
+export class MensagemView extends View < string > {
 
-export class MensagemView extends View<string> {
-
-    protected template(model: string): string {
-        return ` <p class="alert alert-info">${model}</p>`
+    protected template(model: string, classValue?: string): string {
+        return ` <p class="alert alert-${classValue}">${model}</p>`
     }
 
-    public setHiddenFlashMessage(seletor: HTMLElement): void
-    {
-        seletor.style.display = 'none'
-    }
 }

@@ -8,8 +8,8 @@ export class View {
             throw Error(`Seletor ${seletor} não existe no DOM. Verifique`);
         }
     }
-    update(model) {
-        let template = this.template(model);
+    update(model, classValue) {
+        let template = this.template(model, classValue);
         this.elemento.innerHTML = template;
     }
 }

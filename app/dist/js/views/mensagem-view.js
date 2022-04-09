@@ -1,10 +1,7 @@
 import { View } from './view.js';
 export class MensagemView extends View {
-    template(model) {
-        return ` <p class="alert alert-info">${model}</p>`;
-    }
-    setHiddenFlashMessage(seletor) {
-        seletor.style.display = 'none';
+    template(model, classValue) {
+        return ` <p class="alert alert-${classValue}">${model}</p>`;
     }
 }
 //# sourceMappingURL=mensagem-view.js.map

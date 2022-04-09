@@ -46,11 +46,10 @@ export class NegociacaoController {
         );
 
         if (!this.ehDiaUtil(negociacao.data)) {
-            this.mensagemView.update('Apenas negociações em dias úteis são aceitas');
-            let seletor = document.querySelector('#mensagemView') as HTMLElement;
-                setTimeout(() => {
-                    this.mensagemView.setHiddenFlashMessage(seletor);
-                }, 2000);
+            this.mensagemView.update('Apenas negociações em dias úteis são aceitas', 'danger');
+            setTimeout(() => {
+                    this.mensagemView.update('');
+            }, 3000);
             return;
         }
 
@@ -86,10 +85,9 @@ export class NegociacaoController {
 
     private atualizaView(): void {
         this.negociacoesView.update(this.negociacoes);
-        this.mensagemView.update('Negociação adicionada com sucesso');
-        let seletor = document.querySelector('#mensagemView') as HTMLElement;
+        this.mensagemView.update('Negociação adicionada com sucesso', 'info');
         setTimeout(() => {
-            this.mensagemView.setHiddenFlashMessage(seletor)
-        }, 2000);
+            this.mensagemView.update('');
+        }, 3000);
     }
 }
